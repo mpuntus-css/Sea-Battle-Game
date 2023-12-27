@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class SeaBattle {
+   
     public static void main(String[] args) {
         
 
@@ -20,6 +21,9 @@ public class SeaBattle {
 
         //coordinates of the ships
         int[][] battleShipsCoordinates = new int[GRID_SIZE][GRID_SIZE];
+        int[][] battleShipsCoordinates_4_Squares = new int[2][4];
+        
+
 
         // counter to end the game
         int counterOfHits = 0;
@@ -56,6 +60,11 @@ public class SeaBattle {
 
                     // coordinate check that the user entered
                     coordinateCondition = check(xBowCoordinate, yBowCoordinate, xShot, yShot, squares, arrangementChoice, battleShipsCoordinates, VERTICAL, HORIZONTAL, GRID_SIZE, shots);
+
+                    if (squares == 4 && i == 0) {
+                        //fill the array method
+                        battleShipsCoordinates_4_Squares = fillBattleShipsArrays(squares, xBowCoordinate, yBowCoordinate, arrangementChoice, VERTICAL); 
+                    }
 
                 } while (!coordinateCondition);
 
@@ -98,7 +107,14 @@ public class SeaBattle {
         System.out.println("Congratulation! You destroyed ALL the Batlle Ships");
 
         System.out.println();//end of the program
+        
 
+        for (int i = 0; i < battleShipsCoordinates_4_Squares.length; i++) {
+            for (int j = 0; j < battleShipsCoordinates_4_Squares[i].length; j++) {
+                System.out.print(battleShipsCoordinates_4_Squares[i][j] + " ");
+            }
+            System.out.println();
+        }
 
    
 
@@ -111,6 +127,24 @@ public class SeaBattle {
    
     }// end of the main method
 
+
+
+    private static int[][] fillBattleShipsArrays(int squares, int x, int y, int arrangement, int VERTICAL) {
+        int[][] array = new int[2][squares];
+        
+        for (int i = 0; i < squares; i++) {
+            if (arrangement == VERTICAL) {
+                array[0][i] = x;
+                array[1][i] = y + i;
+            }
+            else {
+                array[0][i] = x + i;
+                array[1][i] = y; 
+            }
+        }
+
+        return array;
+    }
 
 
     private static void checkInputForInteger(Scanner scanner) {
@@ -275,7 +309,8 @@ public class SeaBattle {
 
             checkInputForInteger(scanner);
 
-            arrangementChoice = scanner.nextInt();
+            //arrangementChoice = scanner.nextInt();
+            arrangementChoice = (int)(2 * Math.random() + 3);
 
             if (arrangementChoice < 5 && arrangementChoice > 2) {
                 coordinateCondition = true;
@@ -300,7 +335,10 @@ public class SeaBattle {
 
         checkInputForInteger(scanner);
 
-        xBowCoordinate = scanner.nextInt();
+        //xBowCoordinate = scanner.nextInt();
+        xBowCoordinate = (int)(10 * Math.random());
+        
+        
         return xBowCoordinate;
     }
 
@@ -310,7 +348,11 @@ public class SeaBattle {
         
         System.out.println("Y-coordinate:");
         checkInputForInteger(scanner);
-        yBowCoordinate = scanner.nextInt();
+        
+        
+        
+        //yBowCoordinate = scanner.nextInt();
+        yBowCoordinate = (int)(10 * Math.random());
 
         return yBowCoordinate;
     }
@@ -388,7 +430,11 @@ public class SeaBattle {
         System.out.println("X coordinate: ");
 
         checkInputForInteger(scanner);
-        xShot = scanner.nextInt();
+        
+        
+        
+        //xShot = scanner.nextInt();
+        xShot = (int)(10 * Math.random());
 
         return xShot;
     }
@@ -400,7 +446,11 @@ public class SeaBattle {
         System.out.println("Y coordinate: ");
 
         checkInputForInteger(scanner);
-        yShot = scanner.nextInt();
+        
+        
+        //yShot = scanner.nextInt();
+        yShot = (int)(10 * Math.random());
+
 
         return yShot;
     }
